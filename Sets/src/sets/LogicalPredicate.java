@@ -38,15 +38,19 @@ public class LogicalPredicate extends Predicate{
 	
 	public LogicalPredicate(Object[] parameters) throws InvalidPredicateArgsNum{
 		//TODO: Implement a checking mechanism to see if the parameters correspond to valid truth table. If it doesn't pass, throw an exception.
+		/*
+		 * parameters[]: The inputs and functions in reverse polish notation.
+		 * arguments[]: the inputs, represented by integers. If the two inputs are the same number, they represent the same variable.
+		 * operators[]: The functions, all of which are LogicalPredicates.
+		 */
+
 		int[] argumentsTemp = new int[parameters.length];
 		int counter=0;
 		int max = -1;
 		for(int i=0;i<=parameters.length-1;i++){
 			if(parameters[i] instanceof Integer){
 				 argumentsTemp[counter] = (int) parameters[i];
-				 if(argumentsTemp[counter]>max){
-					 max = argumentsTemp[counter]; 
-				 }
+				 max=Math.max(max,argumentsTemp[counter]);
 				 counter++;
 			}
 		}
@@ -62,7 +66,7 @@ public class LogicalPredicate extends Predicate{
 			}
 		}
 		
-		
+		truthTable = new TruthValue[]{};	//This is just here so eclipse shuts up about not initializing the class's final field while I write the code to do just that.
 	}
 		
 		
