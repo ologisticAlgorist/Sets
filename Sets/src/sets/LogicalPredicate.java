@@ -3,13 +3,17 @@ package sets;
 import sets.exceptions.*;
 
 public class LogicalPredicate extends Predicate{
+	/**
+	 * Static final instances of the LogicalPredicate class. They each
+	 * represent basic logical predicates. Because initializing a
+	 * LogicalPredicate can throw an exception, I need to initialize 
+	 */
 	public static final LogicalPredicate TRUE;
 	public static final LogicalPredicate FALSE;	
 	public static final LogicalPredicate IDENTITY;
 	public static final LogicalPredicate NOT;
 	public static final LogicalPredicate OR;
 	public static final LogicalPredicate AND;
-	//public static final LogicalPredicate AND;
 	
 	static{
 		try{
@@ -107,8 +111,18 @@ public class LogicalPredicate extends Predicate{
 		
 		truthTable=new TruthValue[]{};
 		*/
-		
-	public TruthValue eval(TruthValue[] arguments) throws InvalidPredicateArgsNum{
+	/**
+	 * @param arguments
+	 * @return
+	 * @throws InvalidPredicateArgsNum
+	 * 
+	 * This is the primary public method of the LogicalPredicate Class. It
+	 * takes in a series of TruthValues and uses the object's truthTable
+	 * field to determine the output of the predicate given those inputs. If
+	 * it doesn't receive the number of inputs that is expected from the
+	 * object that calls it, it throws an exception.
+	 */
+	public TruthValue eval(TruthValue... arguments) throws InvalidPredicateArgsNum{
 		if(arguments.length != arity){
 			throw new InvalidPredicateArgsNum(arity, arguments.length);
 		}
@@ -122,6 +136,14 @@ public class LogicalPredicate extends Predicate{
 		return x;
 	}
 	
+	/**
+	 * @param truthValues
+	 * @return
+	 * 
+	 * This is a private method. It's only purpose currently is to make 
+	 * the eval() method easier to write. 
+	 */
+	//TODO: If I never use this function outside of the eval() method, just cut and paste the code into it.
 	private static int truthsToInt(TruthValue[] truthValues){
 		int[] bits = new int[truthValues.length];
 		for(int i=0;i<=truthValues.length-1;i++){
